@@ -37,7 +37,7 @@ def convert_json_to_csv():
     print('The variable emplist contains: ',emplist)
 
 def upload_variable():
-    r=requests.post('http://52.207.196.214/api/v1/upload',json={'data':'emplist'})
+    r=requests.post('http://52.207.196.214/api/v1/upload',json={'data':emplist})
     print('upload status code:',r.status_code)
     if r.ok:
         print(" File uploaded successfully ! ")
