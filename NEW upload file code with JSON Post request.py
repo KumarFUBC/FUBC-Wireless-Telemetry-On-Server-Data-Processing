@@ -32,12 +32,14 @@ def convert_json_to_csv():
     emplist.append(list(header))
     for i in sensordata:
         j=list(i.values())
-        rows=zip(*j)
-        emplist.append(rows)
-    print('The variable emplist contains: ',emplist)
+        for k in j:
+            emplist.append(k)
+    print('The variable emplist contains: ',emplist) 
 
 def upload_variable():
-    r=requests.post('http://52.207.196.214/api/v1/upload',json={'data':emplist})
+    r=requests.post('http://52.207.196.214/api/v1/upload',json={'data':emplist})#using "emplist" did not work, it just uploaded the word "emplist" as a string. 
+                                                                                #I'm not sure if we should use it as it is or use str(emplist). Doing that gives 
+                                                                                #status code 504.
     print('upload status code:',r.status_code)
     if r.ok:
         print(" File uploaded successfully ! ")
