@@ -34,12 +34,11 @@ def convert_json_to_csv():
         j=list(i.values())
         for k in j:
             emplist.append(k)
-    print('The variable emplist contains: ',emplist) 
+    print('The variable emplist contains: ',emplist)#using "emplist" did not work, it just uploaded the word "emplist" as a string. I'm not sure if we should use
+                                                     #it as it is or str(emplist)
 
 def upload_variable():
-    r=requests.post('http://52.207.196.214/api/v1/upload',json={'data':emplist})#using "emplist" did not work, it just uploaded the word "emplist" as a string. 
-                                                                                #I'm not sure if we should use it as it is or use str(emplist). Doing that gives 
-                                                                                #status code 504.
+    r=requests.post('http://52.207.196.214/api/v1/upload',json={'data':str(emplist)})
     print('upload status code:',r.status_code)
     if r.ok:
         print(" File uploaded successfully ! ")
@@ -53,4 +52,6 @@ def download_data():
     r=requests.get('http://52.207.196.214/api/v1/download')
     print(r.text)
 
-
+convert_json_to_csv()
+upload varuable()
+download_data()
