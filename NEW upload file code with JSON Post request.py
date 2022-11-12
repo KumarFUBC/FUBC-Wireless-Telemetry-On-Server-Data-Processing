@@ -34,8 +34,7 @@ def convert_json_to_csv():
         j=list(i.values())
         for k in j:
             emplist.append(k)
-    print('The variable emplist contains: ',emplist)#using "emplist" did not work, it just uploaded the word "emplist" as a string. I'm not sure if we should use
-                                                     #it as it is or str(emplist)
+    print('The variable emplist contains: ',emplist)
 
 def upload_variable():
     r=requests.post('http://52.207.196.214/api/v1/upload',json={'data':str(emplist)})
