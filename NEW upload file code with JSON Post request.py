@@ -52,5 +52,5 @@ def download_data():
     print(r.text)
 
 convert_json_to_csv()
-upload varuable()
+upload_variable()
 download_data()
