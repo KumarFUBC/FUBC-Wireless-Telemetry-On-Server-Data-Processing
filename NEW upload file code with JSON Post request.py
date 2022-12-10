@@ -23,12 +23,9 @@ def convert_json_to_csv():
         data=json.load(f)
 
     sensordata=data['sensor_details']
-    count=0
     
     for i in sensordata:
-        if count==0:
-            header=i.keys()
-            count+=1
+        header=i.keys()
     emplist.append(list(header))
     for i in sensordata:
         j=list(i.values())
