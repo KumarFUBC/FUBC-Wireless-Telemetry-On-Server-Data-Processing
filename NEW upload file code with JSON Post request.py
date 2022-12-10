@@ -34,17 +34,28 @@ def convert_json_to_csv():
         j=list(i.values())
         for k in j:
             emplist.append(k)
-    print('The variable emplist contains: ',emplist)
+    print('The list is:',emplist)
+
+    def transpose(lists):
+        global uploadobj
+        if not lists:
+            return []
+        uploadobj=map(lambda *row: list(row), *lists)
+        uploadobj=list(uploadobj)
+        print(uploadobj)
+    transpose(emplist[1:])
+
 
 def upload_variable():
-    r=requests.post('http://52.207.196.214/api/v1/upload',json={'data':str(emplist)})
+    r=requests.post('http://52.207.196.214/api/v1/upload',json={'data':str(emplist[0])})
+    r=requests.post('http://52.207.196.214/api/v1/upload',json={'data':str(uploadobj)})
     print('upload status code:',r.status_code)
     if r.ok:
         print(" File uploaded successfully ! ")
         print(r.text)
         for i in r:
             print(i)
-    else:   
+    else:       
         print(" Please Upload again ! ")
 
 def download_data():
