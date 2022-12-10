@@ -1,3 +1,4 @@
+#basic version of file upload request
 '''
 import requests
 import csv
@@ -20,20 +21,20 @@ def convert_json_to_csv():
     global sensordata
     emplist=[]
     with open('sensor_data.json') as f:
-        data=json.load(f)
+        data=json.load(f)   #read data from json file
 
     sensordata=data['sensor_details']
     
     for i in sensordata:
         header=i.keys()
-    emplist.append(list(header))
+    emplist.append(list(header)) #Append headers to the list
     for i in sensordata:
         j=list(i.values())
         for k in j:
             emplist.append(k)
-    print('The list is:',emplist)
+    print('The list is:',emplist)  #final nested list with each sublist containing data for one particular metric
 
-    def transpose(lists):
+    def transpose(lists):  #function to transpose the nested list where each sublist contains one data unit for each metric
         global uploadobj
         if not lists:
             return []
@@ -43,19 +44,19 @@ def convert_json_to_csv():
     transpose(emplist[1:])
 
 
-def upload_variable():
-    r=requests.post('http://52.207.196.214/api/v1/upload',json={'data':str(emplist[0])})
-    r=requests.post('http://52.207.196.214/api/v1/upload',json={'data':str(uploadobj)})
+def upload_variable(): #function to upload data to server
+    r=requests.post('http://52.207.196.214/api/v1/upload',json={'data':str(emplist[0])})  #upload headers first
+    r=requests.post('http://52.207.196.214/api/v1/upload',json={'data':str(uploadobj)})   #upload transposed data 
     print('upload status code:',r.status_code)
     if r.ok:
         print(" File uploaded successfully ! ")
-        print(r.text)
+        print(r.text)  #print upload status
         for i in r:
             print(i)
     else:       
         print(" Please Upload again ! ")
 
-def download_data():
+def download_data():  #download data from server to computer
     r=requests.get('http://52.207.196.214/api/v1/download')
     print(r.text)
 
